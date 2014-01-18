@@ -72,7 +72,7 @@ static const uint8_t dreqinttable[] = {
 #elif  defined(__AVR_ATmega1284P__)
 	10, 0,
 	11, 1,
-	2, 3,
+	2, 2,
 #elif  defined(__AVR_ATmega32U4__) 
   7, 4,
   3, 0,
