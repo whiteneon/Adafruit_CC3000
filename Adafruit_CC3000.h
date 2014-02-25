@@ -113,6 +113,10 @@ class Adafruit_CC3000 {
     uint32_t IP2U32(uint8_t a, uint8_t b, uint8_t c, uint8_t d);
     bool     getMacAddress(uint8_t address[6]);
     bool     setMacAddress(uint8_t address[6]);
+	
+	//Static IP Address Start
+    long      setStaticIPAddress(unsigned long *aucIP, unsigned long *aucSubnetMask,unsigned long *aucDefaultGateway, unsigned long *aucDNSServer);
+	//Static IP Address End
 
     bool     connectToAP(const char *ssid, const char *key, uint8_t secmode);
     bool     connectSecure(const char *ssid, const char *key, int32_t secMode);

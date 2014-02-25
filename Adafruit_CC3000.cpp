@@ -1431,3 +1431,30 @@ uint8_t Adafruit_CC3000_Client::available(void) {
 void Adafruit_CC3000::setPrinter(Print* p) {
   CC3KPrinter = p;
 }
+
+
+/**********Static IP Address**************************************************/
+/*!
+    @brief    Sets a new Static IP address
+
+    @param    IP Address, Subnet Mask, Default GW, DNS Server
+
+    @returns  False if an error occured!
+*/
+/**********Static IP Address**************************************************/
+long Adafruit_CC3000::setStaticIPAddress(unsigned long *aucIP, unsigned long *aucSubnetMask,unsigned long *aucDefaultGateway, unsigned long *aucDNSServer)
+{
+  if (!_initialised)
+  {
+    return false;
+  }
+
+
+  CHECK_SUCCESS(netapp_dhcp(aucIP, aucSubnetMask, aucDefaultGateway, aucDNSServer),"Failed setting Static IP address!", false);
+
+  wlan_stop();
+  delay(200);
+  wlan_start(0);
+
+  return true;
+}

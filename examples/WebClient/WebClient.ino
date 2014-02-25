@@ -34,15 +34,15 @@ It might not work on all networks!
 // These are the interrupt and control pins
 #define ADAFRUIT_CC3000_IRQ   3  // MUST be an interrupt pin!
 // These can be any two pins
-#define ADAFRUIT_CC3000_VBAT  5
+#define ADAFRUIT_CC3000_VBAT  9
 #define ADAFRUIT_CC3000_CS    10
 // Use hardware SPI for the remaining pins
 // On an UNO, SCK = 13, MISO = 12, and MOSI = 11
 Adafruit_CC3000 cc3000 = Adafruit_CC3000(ADAFRUIT_CC3000_CS, ADAFRUIT_CC3000_IRQ, ADAFRUIT_CC3000_VBAT,
                                          SPI_CLOCK_DIV2); // you can change this clock speed
 
-#define WLAN_SSID       "myNetwork"           // cannot be longer than 32 characters!
-#define WLAN_PASS       "myPassword"
+#define WLAN_SSID       "Ju"           // cannot be longer than 32 characters!
+#define WLAN_PASS       "Be"
 // Security can be WLAN_SEC_UNSEC, WLAN_SEC_WEP, WLAN_SEC_WPA or WLAN_SEC_WPA2
 #define WLAN_SECURITY   WLAN_SEC_WPA2
 
@@ -81,6 +81,31 @@ void setup(void)
   
   // Optional SSID scan
   // listSSIDResults();
+  
+  /* Optional setting a static IP Address  */
+
+unsigned long IPAdd[1] = {0x3202A8C0};
+unsigned long SubNetMask[1] = {0x00FFFFFF};
+unsigned long dfGW[1] = {0x0102A8C0};
+unsigned long DNSServer[1] = {0x08080808};
+
+/*
+unsigned long IPAdd[4] = {0x00};
+unsigned long SubNetMask[4] = {0x00};
+unsigned long dfGW[4] = {0x00};
+unsigned long DNSServer[4] = {0x00};
+*/
+
+    if (!cc3000.setStaticIPAddress(IPAdd, SubNetMask, dfGW, DNSServer))
+    {
+      Serial.println(F("Failed to set static IP"));
+      while(true);
+    }
+    
+
+/* End setting static IP Address*/
+
+
   
   if (!cc3000.connectToAP(WLAN_SSID, WLAN_PASS, WLAN_SECURITY)) {
     Serial.println(F("Failed!"));
